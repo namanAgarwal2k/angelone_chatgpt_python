@@ -1,0 +1,45 @@
+hft_trading_system/
+│
+├── strategies/
+│   ├── strategy1.py
+│   ├── strategy2.py
+│   └── backtest.py
+│
+├── data/
+│   ├── live_data.py
+│   ├── paper_data.py
+│   └── historical_data.py
+│
+├── execution/
+│   ├── live_execution.py
+│   ├── paper_execution.py
+│
+├── config/
+│   └── config.py
+│
+├── utils/
+│   ├── session_manager.py
+│   ├── logger.py
+│   └── db_handler.py
+│
+├── main.py
+└── requirements.txt
+
+
+
+
+my_hft_project/
+│
+├── config/
+│   └── config.py
+├── execution/
+│   └── trading_executor.py
+├── strategies/
+│   ├── backtest.py
+│   └── strategy1.py
+├── utils/
+│   ├── session_manager.py
+│   ├── logger.py
+├── requirements.txt
+└── main.py
+
