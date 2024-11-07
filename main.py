@@ -3,6 +3,7 @@
 from execution.paper_execution import execute_paper_order
 from strategies.backtest import run_backtest
 from strategies.startegy1 import strategy1
+from strategies.startegy2 import run_strategy2
 from execution.trading_executor import execute_trade
 from utils.session_manager import SmartConnectSingleton
 
@@ -17,8 +18,9 @@ def main():
         print("Running Backtest...")
         # List of symbols to backtest
         symbol_list = ['RELIANCE', 'TCS', 'INFY']  # Add your list of symbols here
-        run_backtest(strategy1, symbol_list)
-    
+        # run_backtest(run_strategy2, symbol_list)
+        run_strategy2()
+
     elif mode == 'live':
         print("Running Live Trading...")
         # Example live trade

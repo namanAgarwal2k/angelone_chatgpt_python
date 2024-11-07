@@ -4,29 +4,28 @@ import pandas as pd
 from utils.session_manager import SmartConnectSingleton
 from datetime import datetime, timedelta
 
-def fetch_historical_data(symbol,symbolToken, exchange="NSE", interval="ONE_MINUTE", days=10):
-    """Fetch historical data from Angel One for a given symbol."""
-    obj = SmartConnectSingleton.get_instance()
-
-    # Define date range
-    to_date = datetime.now().strftime('%Y-%m-%d %H:%M')
-    from_date = (datetime.now() - timedelta(days=days)).strftime('%Y-%m-%d %H:%M')
-
-    params = {
-        "exchange": exchange,
-        "tradingsymbol": symbol,
-        "symboltoken": symbolToken,  # Replace with correct symbol token
-        "interval": interval,
-        "fromdate": from_date,
-        "todate": to_date
-    }
-    
-    # Fetch data
-    market_data = obj.getCandleData(params)
-    df = pd.DataFrame(market_data, columns=['timestamp', 'open', 'high', 'low', 'close', 'volume'])
-    df['timestamp'] = pd.to_datetime(df['timestamp'])
-    return df
-
+# yei hame data de dega sara date wise
+def fetch_historical_data(session, symbol_token, interval, from_date, to_date):
+    try:
+        params = {
+            "exchange": "NSE",
+            "symboltoken": symbol_token,
+            "interval": interval,
+            "fromdate": from_date,
+            "todate": to_date
+        }
+        response = session.getCandleData(params)
+        if response['status']:
+            data = response['data']
+            df = pd.DataFrame(data, columns=['timestamp', 'open', 'high', 'low', 'close', 'volume'])
+            df['timestamp'] = pd.to_datetime(df['timestamp'])
+            return df
+        else:
+            print("Error fetching data:", response['message'])
+            return None
+    except Exception as e:
+        print(f"Error fetching data: {e}")
+        return None
 
 def calculate_momentum(df, window=10):
     """Calculate momentum based on price difference over a window."""
